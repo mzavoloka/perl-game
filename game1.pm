@@ -55,13 +55,6 @@ sub init
         # $player_clone -> name( 'player_clone' );
         # $player_clone -> position( [ game1::position -> new( x => 21,
         #                                                      y => 20 ) ] );
-        # my $food_view = game1::view -> new();
-        # $food_view -> set_solid_color( 'red' );
-        # my $food = game1::object -> new( name     => 'food',
-        #                                  position => [ game1::position -> new( x => 19, y => 40 ),
-        #                                                game1::position -> new( x => 20, y => 40 ),
-        #                                                game1::position -> new( x => 21, y => 40 ) ],
-        #                                  view     => $food_view );
 
         $self -> field() -> objects( [ $player ] );
 
