@@ -1,0 +1,78 @@
+
+use v5.18;
+
+package game1::field;
+
+use Data::Dumper;
+
+use Moose;
+
+
+has 'objects' => ( traits  => [ 'Array' ],
+                   is      => 'rw',
+                   isa     => 'ArrayRef[ game1::object ]',
+                   default => sub{ [] },
+                   handles => { add => 'push',
+                                all => 'elements' } );
+
+has 'width'   => ( is => 'ro', isa => 'Int', default => sub{ 1920 / 20 } );
+
+has 'height'  => ( is => 'ro', isa => 'Int', default => sub{ 1080 / 20 } );
+
+has 'cell_width'  => ( is => 'rw', isa => 'Int', default => 0 );
+
+has 'cell_height' => ( is => 'rw', isa => 'Int', default => 0 );
+
+sub BUILD
+{
+        my $self = shift;
+
+        $self -> cell_width( 1920 / $self -> width() );
+        $self -> cell_height( 1080 / $self -> height() );
+
+        return;
+}
+
+sub get_object
+{
+        my ( $self, $object_name ) = @_;
+
+        foreach my $object ( @{ $self -> objects() } )
+        {
+                if( $object -> name() eq $object_name )
+                {
+                        return $object;
+                }
+        }
+
+        die 'No object with such name!';
+}
+
+sub get_object_on_cell
+{
+        my ( $self, $w, $h ) = @_;
+
+        foreach my $object ( @{ $self -> objects() } )
+        {
+                if( $object -> position() -> x() == $w
+                    and
+                    $object -> position() -> y() == $h )
+                {
+                        return $object;
+                }
+        }
+
+        return;
+}
+
+sub get_object_by_name
+{
+        my ( $self, $name ) = @_;
+
+        my @objects_with_such_name = grep { $_ -> name() eq $name } @{ $self -> objects() };
+
+        return( @objects_with_such_name ? $objects_with_such_name[ 0 ] : undef );
+}
+
+
+1;
