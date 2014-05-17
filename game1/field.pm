@@ -3,6 +3,7 @@ use v5.18;
 
 package game1::field;
 
+use game1::const qw( RESOLUTION );
 use Data::Dumper;
 
 use Moose;
@@ -15,9 +16,9 @@ has 'objects' => ( traits  => [ 'Array' ],
                    handles => { add => 'push',
                                 all => 'elements' } );
 
-has 'width'   => ( is => 'ro', isa => 'Int', default => sub{ 1920 / 20 } );
+has 'width'   => ( is => 'ro', isa => 'Int', default => sub{ RESOLUTION -> { 'width' } / 20 } );
 
-has 'height'  => ( is => 'ro', isa => 'Int', default => sub{ 1080 / 20 } );
+has 'height'  => ( is => 'ro', isa => 'Int', default => sub{ RESOLUTION -> { 'height' } / 20 } );
 
 has 'cell_width'  => ( is => 'rw', isa => 'Int', default => 0 );
 
@@ -27,8 +28,8 @@ sub BUILD
 {
         my $self = shift;
 
-        $self -> cell_width( 1920 / $self -> width() );
-        $self -> cell_height( 1080 / $self -> height() );
+        $self -> cell_width( RESOLUTION -> { 'width' } / $self -> width() );
+        $self -> cell_height( RESOLUTION -> { 'height' } / $self -> height() );
 
         return;
 }

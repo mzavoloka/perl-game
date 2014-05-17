@@ -7,6 +7,7 @@ use game1::field;
 use game1::object;
 use game1::position;
 use game1::color;
+use game1::const qw( RESOLUTION );
 use Time::HiRes qw( time sleep );
 use OpenGL qw( :all );
 use POSIX qw( floor );
@@ -59,8 +60,10 @@ sub init
         $self -> field() -> objects( [ $player ] );
 
         glutInit();
+        glutInitWindowSize( RESOLUTION -> { 'width' }, RESOLUTION -> { 'height' } );
+        glutInitWindowPosition( 1800 - RESOLUTION -> { 'width' }, 100 );
         glutCreateWindow( 'window' );
-        glutFullScreen();
+
         glClearColor( 1, 1, 1, 1 );
         glClear( GL_COLOR_BUFFER_BIT );
 
