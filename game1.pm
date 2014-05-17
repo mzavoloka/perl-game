@@ -148,12 +148,10 @@ sub wait_for_the_next_step
         my ( $self, $step_time ) = @_;
 
         my $next_step_time = $step_time + $self -> speed();
-        # say "Next step time: $next_step_time";
 
         if( time <= $next_step_time )
         {
                 my $time_until_next_step = $next_step_time - time();
-                #say "Time until next step: $time_until_next_step";
                 sleep( $time_until_next_step );
         }
 
