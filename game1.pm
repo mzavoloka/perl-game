@@ -161,23 +161,4 @@ sub wait_for_the_next_step
 }
 
 
-sub hd_resolutions
-{
-	say "Possible HD Resolutions:";
-	say;
-
-	my $aspect = { width  => 16,
-		       height => 9 };
-
-	for( my $i = 1; $i < 10; $i ++ )
-	{
-		say sprintf( "%d x %d",
-                             $aspect -> { 'width' }  * $i,
-                             $aspect -> { 'height' } * $i );
-	}
-
-	say "That seems more than enough. Choose one for your game field.";
-}
-
-
 1;
