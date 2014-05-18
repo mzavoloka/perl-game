@@ -15,7 +15,7 @@ use POSIX qw( floor );
 use Moose;
 
 
-has 'speed' => ( is => 'rw', isa => 'Num', default => 0.5 ); # seconds 
+has 'speed' => ( is => 'rw', isa => 'Num', default => sub{ 1 / 60 } ); # seconds ( 60 FPS )
 
 has 'field' => ( is => 'rw', isa => 'game1::field', default => sub{ game1::field -> new() } );
 
@@ -27,21 +27,12 @@ sub go
 
         $self -> init();
 
-        while( 1 )
-        {
-                my $step_time = time;
+        glutMainLoop();
 
-                $self -> step( $step_time );
-                $self -> render();
-
-                $self -> wait_for_the_next_step( $step_time );
-
-
-        }
+        die 'outside of main loop';
 
         return;
 }
-
 
 sub init 
 {
@@ -62,22 +53,97 @@ sub init
         glutInit();
         glutInitWindowSize( RESOLUTION -> { 'width' }, RESOLUTION -> { 'height' } );
         glutInitWindowPosition( 1800 - RESOLUTION -> { 'width' }, 100 );
-        glutCreateWindow( 'window' );
+        glutCreateWindow( 'game1' );
 
         glClearColor( 1, 1, 1, 1 );
         glClear( GL_COLOR_BUFFER_BIT );
 
         glLoadIdentity();
-        glViewport( 0, 0, 1920, 1080 );
+        #glViewport( 0, 0, 1920, 1080 );
         glOrtho( 0, glutGet( GLUT_WINDOW_WIDTH ), glutGet( GLUT_WINDOW_HEIGHT ), 0, 0, 1 );
+
+
+        glutKeyboardFunc( sub{ $self -> keydown_handler( @_ ) } );
+        glutKeyboardUpFunc( sub{ $self -> keyup_handler( @_ ) } );
+        #glutDisplayFunc( sub{ $self -> render( @_ ) } );
+
+        glutSpecialFunc( sub{ $self -> keyspecial_handler( @_ ) } );
+
+        glutIdleFunc( sub{ $self -> step( @_ ) } );
 
         return;
 }
 
-
-sub step
 {
-        my ( $self, $step_time ) = @_;
+        sub keydown_handler
+        {
+                my ( $self, $key, $mouse_x, $mouse_y ) = @_;
+        
+                if( $key == 113 ) # q
+                {
+                        glutLeaveMainLoop();
+                }
+        
+                return;
+        }
+        
+        sub keyup_handler
+        {
+                my ( $self, $key, $mouse_x, $mouse_y ) = @_;
+        
+        
+        
+                return;
+        }
+                
+        sub keyspecial_handler
+        {
+                my ( $self, $key, $mouse_x, $mouse_y ) = @_;
+        
+                if( $key == GLUT_KEY_UP )
+                {
+                        $self -> field() -> get_object_by_name( 'player' ) -> move_up();
+                }
+                elsif( $key == GLUT_KEY_DOWN )
+                {
+                        $self -> field() -> get_object_by_name( 'player' ) -> move_down();
+                }
+                elsif( $key == GLUT_KEY_LEFT )
+                {
+                        $self -> field() -> get_object_by_name( 'player' ) -> move_left();
+                }
+                elsif( $key == GLUT_KEY_RIGHT )
+                {
+                        $self -> field() -> get_object_by_name( 'player' ) -> move_right();
+                }
+        
+                return;
+        }
+}
+
+{
+        my $sn = 1;
+        my $step_time;
+
+        sub step
+        {
+                my $self = shift;
+        
+                $step_time = time();
+                #$self -> move_player_in_random_direction();
+
+                say( $sn++ );
+                
+                $self -> render();
+                $self -> wait_for_the_next_step( $step_time );
+
+                return;
+        }
+}
+
+sub move_player_in_random_direction
+{
+        my $self = shift;
 
         my $random_direction = { 1 => 'left',
                                  2 => 'right',
@@ -86,10 +152,9 @@ sub step
 
         my $direction = 'move_' . $random_direction -> { floor( rand( 4 ) + 1 ) };
         $self -> field() -> get_object_by_name( 'player' ) -> $direction();
-        
+
         return;
 }
-
 
 sub render
 {
@@ -136,6 +201,8 @@ sub render
 
         glFlush();
 
+        #glutPostRedisplay();
+
         return;
 }
 
@@ -145,9 +212,8 @@ sub wait_for_the_next_step
 
         my $next_step_time = $step_time + $self -> speed();
 
-        if( time <= $next_step_time )
+        if( ( my $time_until_next_step = $next_step_time - time() ) > 0 )
         {
-                my $time_until_next_step = $next_step_time - time();
                 sleep( $time_until_next_step );
         }
 
