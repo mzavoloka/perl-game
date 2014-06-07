@@ -19,6 +19,8 @@ sub init
         my $self = shift;
 
         $self -> name( 'Player' );
+
+        return;
 }
 
 

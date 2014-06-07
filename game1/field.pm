@@ -47,6 +47,8 @@ sub get_object
         }
 
         die 'No object with such name!';
+
+        return;
 }
 
 sub get_object_on_cell

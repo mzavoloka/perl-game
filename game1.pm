@@ -85,9 +85,10 @@ sub init
                         glutLeaveMainLoop();
                 }
 
-                if( $key == 1  )
+                if( $key == 32 )
                 {
                         say 'space!!!';
+                        $self -> player() -> gun() -> fire();
                 }
 
                 say $key;
@@ -110,19 +111,19 @@ sub init
         
                 if( $key == GLUT_KEY_UP )
                 {
-                        $self -> field() -> get_object_by_name( 'player' ) -> move_up();
+                        $self -> player() -> move_up();
                 }
                 elsif( $key == GLUT_KEY_DOWN )
                 {
-                        $self -> field() -> get_object_by_name( 'player' ) -> move_down();
+                        $self -> player() -> move_down();
                 }
                 elsif( $key == GLUT_KEY_LEFT )
                 {
-                        $self -> field() -> get_object_by_name( 'player' ) -> move_left();
+                        $self -> player() -> move_left();
                 }
                 elsif( $key == GLUT_KEY_RIGHT )
                 {
-                        $self -> field() -> get_object_by_name( 'player' ) -> move_right();
+                        $self -> player() -> move_right();
                 }
         
                 return;
@@ -139,11 +140,30 @@ sub init
                 $step_time = time();
                 #$self -> move_player_in_random_direction();
 
+                $self -> move_ovbjects_that_have_velocity();
+
                 $self -> render();
                 $self -> wait_for_the_next_step( $step_time );
 
                 return;
         }
+}
+
+sub move_ovbjects_that_have_velocity
+{
+        my $self = shift;
+
+        foreach my $object ( $self -> field() -> objects() )
+        {
+                if( $object -> velocity()
+                    and
+                    $object -> destination() )
+                {
+                        $object -> destination();
+                }
+        }
+
+        return;
 }
 
 sub move_player_in_random_direction
@@ -156,7 +176,7 @@ sub move_player_in_random_direction
                                  4 => 'down' };
 
         my $direction = 'move_' . $random_direction -> { floor( rand( 4 ) + 1 ) };
-        $self -> field() -> get_object_by_name( 'player' ) -> $direction();
+        $self -> player() -> $direction();
 
         return;
 }
@@ -223,6 +243,13 @@ sub wait_for_the_next_step
         }
 
         return;
+}
+
+sub player
+{
+        my $self = shift;
+
+        return $self -> field() -> get_object_by_name( 'player' );
 }
 
 

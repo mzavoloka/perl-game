@@ -4,7 +4,7 @@ use v5.18;
 package game1::object::gun;
 
 use Data::Dumper;
-use game1::gun;
+use game1;
 
 use Moose;
 extends 'game1::object';
@@ -25,8 +25,13 @@ has 'damage'    => ( is      => 'rw',
 sub init
 {
         my $self = shift;
-
         
+        $self -> view() -> color( 'black' ); # TODO delete. That's testing
+        $self -> view() -> invisible( 0 );
+
+        $self -> position( game1 -> player() -> position() );
+
+        return;
 }
 
 
