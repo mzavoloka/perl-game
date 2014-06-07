@@ -10,6 +10,7 @@ use game1::color;
 use game1::const qw( RESOLUTION );
 use Time::HiRes qw( time sleep );
 use OpenGL qw( :all );
+use SDL;
 use POSIX qw( floor );
 
 use Moose;
@@ -83,6 +84,13 @@ sub init
                 {
                         glutLeaveMainLoop();
                 }
+
+                if( $key == 1  )
+                {
+                        say 'space!!!';
+                }
+
+                say $key;
         
                 return;
         }
@@ -122,7 +130,6 @@ sub init
 }
 
 {
-        my $sn = 1;
         my $step_time;
 
         sub step
@@ -132,8 +139,6 @@ sub init
                 $step_time = time();
                 #$self -> move_player_in_random_direction();
 
-                say( $sn++ );
-                
                 $self -> render();
                 $self -> wait_for_the_next_step( $step_time );
 
