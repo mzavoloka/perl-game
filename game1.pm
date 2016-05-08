@@ -153,7 +153,7 @@ sub move_ovbjects_that_have_velocity
 {
         my $self = shift;
 
-        foreach my $object ( $self -> field() -> objects() )
+        foreach my $object ( @{ $self -> field() -> objects() } )
         {
                 if( $object -> velocity()
                     and

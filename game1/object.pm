@@ -24,7 +24,7 @@ has 'desitination' => ( is      => 'rw',
                         default => sub{ undef } );
 
 has 'velocity' => ( is      => 'rw',
-                    isa     => 'Number',
+                    isa     => 'Num',
                     default => 0 );
 
 has 'health'   => ( is      => 'rw',
