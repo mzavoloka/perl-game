@@ -1,4 +1,4 @@
-use v5.18;
+use v5.40;
 
 package game1;
 
@@ -10,7 +10,6 @@ use game1::color;
 use game1::const qw( RESOLUTION );
 use Time::HiRes qw( time sleep );
 use OpenGL qw( :all );
-use SDL;
 use POSIX qw( floor );
 
 use Moose;
@@ -35,7 +34,7 @@ sub go
         return;
 }
 
-sub init 
+sub init
 {
         my $self = shift;
 
@@ -55,6 +54,7 @@ sub init
         glutInitWindowSize( RESOLUTION -> { 'width' }, RESOLUTION -> { 'height' } );
         glutInitWindowPosition( 1800 - RESOLUTION -> { 'width' }, 100 );
         glutCreateWindow( 'game1' );
+        glutDisplayFunc( 'glutPostRedisplay' );
 
         glClearColor( 1, 1, 1, 1 );
         glClear( GL_COLOR_BUFFER_BIT );
@@ -79,7 +79,7 @@ sub init
         sub keydown_handler
         {
                 my ( $self, $key, $mouse_x, $mouse_y ) = @_;
-        
+
                 if( $key == 113 ) # q
                 {
                         glutLeaveMainLoop();
@@ -92,23 +92,23 @@ sub init
                 }
 
                 say $key;
-        
+
                 return;
         }
-        
+
         sub keyup_handler
         {
                 my ( $self, $key, $mouse_x, $mouse_y ) = @_;
-        
-        
-        
+
+
+
                 return;
         }
-                
+
         sub keyspecial_handler
         {
                 my ( $self, $key, $mouse_x, $mouse_y ) = @_;
-        
+
                 if( $key == GLUT_KEY_UP )
                 {
                         $self -> player() -> move_up();
@@ -125,7 +125,7 @@ sub init
                 {
                         $self -> player() -> move_right();
                 }
-        
+
                 return;
         }
 }
@@ -136,7 +136,7 @@ sub init
         sub step
         {
                 my $self = shift;
-        
+
                 $step_time = time();
                 #$self -> move_player_in_random_direction();
 
@@ -172,7 +172,7 @@ sub move_player_in_random_direction
 
         my $random_direction = { 1 => 'left',
                                  2 => 'right',
-                                 3 => 'up', 
+                                 3 => 'up',
                                  4 => 'down' };
 
         my $direction = 'move_' . $random_direction -> { floor( rand( 4 ) + 1 ) };

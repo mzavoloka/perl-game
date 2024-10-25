@@ -1,5 +1,5 @@
 
-use v5.18;
+use v5.40;
 
 package game1::color;
 
@@ -28,7 +28,8 @@ has 'a' => ( is      => 'rw',
              default => 1 );
 
 use constant {
-        COLOR => Color::Rgb -> new( rgb_txt => '/etc/X11/rgb.txt' )
+        #COLOR => Color::Rgb -> new( rgb_txt => '/etc/X11/rgb.txt' )
+        COLOR => Color::Rgb -> new( rgb_txt => '/usr/share/imlib2/rgb.txt' )
 };
 
 

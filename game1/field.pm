@@ -1,5 +1,5 @@
 
-use v5.18;
+use v5.40;
 
 package game1::field;
 
