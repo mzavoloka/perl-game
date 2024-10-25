@@ -1,6 +1,7 @@
 
 use v5.40;
-use lib '.';
+use File::Basename;
+use lib dirname (__FILE__);
 
 package main;
 
