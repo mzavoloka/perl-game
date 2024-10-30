@@ -13,6 +13,8 @@ has 'objects' => (
     traits  => [ 'Array' ],
     is      => 'rw',
     isa     => 'ArrayRef[ game1::object ]',
+    #isa     => 'ArrayRef[ game1::object::player ]',
+    #isa     => 'ArrayRef',
     default => sub{ [] },
     handles => { add => 'push', all => 'elements' },
 );

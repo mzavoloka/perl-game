@@ -5,6 +5,7 @@ package game1;
 use Data::Dumper;
 use game1::field;
 use game1::object;
+use game1::object::player;
 use game1::position;
 use game1::color;
 use game1::const qw( RESOLUTION );
@@ -38,17 +39,18 @@ sub init
 {
     my $self = shift;
 
-    my $player = game1::object->new( name     => 'player',
-        position => game1::position->new( x => 20,
-            y => 20 ),
-        view     => game1::view->new( color => game1::color->new( name => 'blue' ) ) );
+    my $player = game1::object::player->new(
+        position => game1::position->new( x => 20, y => 20 ),
+        view     => game1::view->new( color => game1::color->new( name => 'blue' ) )
+    );
 
     # my $player_clone = $player->clone();
     # $player_clone->name( 'player_clone' );
     # $player_clone->position( [ game1::position->new( x => 21,
     #                                                      y => 20 ) ] );
 
-    $self->field()->objects( [ $player ] );
+    $self->field()->objects( [ $player, $player->gun ] );
+    #say Dumper $self->field()->objects();
 
     glutInit();
     glutInitWindowSize( RESOLUTION->{ 'width' }, RESOLUTION->{ 'height' } );
@@ -140,7 +142,7 @@ sub init
         $step_time = time();
         #$self->move_player_in_random_direction();
 
-        $self->move_ovbjects_that_have_velocity();
+        #$self->move_ovbjects_that_have_velocity();
 
         $self->render();
         $self->wait_for_the_next_step( $step_time );
@@ -149,35 +151,35 @@ sub init
     }
 }
 
-sub move_ovbjects_that_have_velocity
-{
-    my $self = shift;
+#sub move_ovbjects_that_have_velocity
+#{
+#    my $self = shift;
+#
+#    foreach my $object ( @{ $self->field()->objects() } )
+#    {
+#        if( $object->velocity() and $object->destination() )
+#        {
+#            $object->destination();
+#        }
+#    }
+#
+#    return;
+#}
 
-    foreach my $object ( @{ $self->field()->objects() } )
-    {
-        if( $object->velocity() and $object->destination() )
-        {
-            $object->destination();
-        }
-    }
-
-    return;
-}
-
-sub move_player_in_random_direction
-{
-    my $self = shift;
-
-    my $random_direction = { 1 => 'left',
-        2 => 'right',
-        3 => 'up',
-        4 => 'down' };
-
-    my $direction = 'move_' . $random_direction->{ floor( rand( 4 ) + 1 ) };
-    $self->player()->$direction();
-
-    return;
-}
+#sub move_player_in_random_direction
+#{
+#    my $self = shift;
+#
+#    my $random_direction = { 1 => 'left',
+#        2 => 'right',
+#        3 => 'up',
+#        4 => 'down' };
+#
+#    my $direction = 'move_' . $random_direction->{ floor( rand( 4 ) + 1 ) };
+#    $self->player()->$direction();
+#
+#    return;
+#}
 
 sub render
 {
@@ -247,7 +249,7 @@ sub player
 {
     my $self = shift;
 
-    return $self->field()->get_object_by_name( 'player' );
+    return $self->field()->get_object_by_name( 'Player' );
 }
 
 
