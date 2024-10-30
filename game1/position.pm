@@ -13,8 +13,8 @@ sub set
 {
     my ( $self, $x, $y ) = shift;
 
-    $self -> x( $x );
-    $self -> y( $y );
+    $self->x( $x );
+    $self->y( $y );
 
     return;
 }

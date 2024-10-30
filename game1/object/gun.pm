@@ -12,7 +12,7 @@ extends 'game1::object';
 has 'bullet'    => (
     is      => 'rw',
     isa     => 'game1::object::gun::bullet',
-    default => sub{ game1::gun -> new() }
+    default => sub{ game1::gun->new() }
 );
 
 has 'weight_kg' => (
@@ -32,10 +32,10 @@ sub init
 {
     my $self = shift;
 
-    $self -> view() -> color( 'black' ); # TODO delete. That's testing
-    $self -> view() -> invisible( 0 );
+    $self->view()->color( 'black' ); # TODO delete. That's testing
+    $self->view()->invisible( 0 );
 
-    $self -> position( game1 -> player() -> position() );
+    $self->position( game1->player()->position() );
 
     return;
 }

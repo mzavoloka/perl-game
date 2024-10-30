@@ -12,7 +12,7 @@ extends 'game1::object';
 has 'gun' => (
     is      => 'rw',
     isa     => 'game1::gun',
-    default => sub{ game1::gun -> new() }
+    default => sub{ game1::gun->new() }
 );
 
 
@@ -20,7 +20,7 @@ sub init
 {
     my $self = shift;
 
-    $self -> name( 'Player' );
+    $self->name( 'Player' );
 
     return;
 }

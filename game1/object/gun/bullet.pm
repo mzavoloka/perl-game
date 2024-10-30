@@ -13,14 +13,14 @@ extends 'game1::object';
 has 'initial_position' => (
     is      => 'rw',
     isa     => 'game1::position',
-    default => sub{ game1 -> player() -> gun() }
+    default => sub{ game1->player()->gun() }
 );
 
 sub init
 {
     my $self = shift;
 
-    $self -> view() -> color( 'black' );
+    $self->view()->color( 'black' );
 
     return;
 }
@@ -29,7 +29,7 @@ sub fire
 {
     my $self = shift;
 
-    $self -> move();
+    $self->move();
 
     return;
 }
