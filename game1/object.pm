@@ -1,4 +1,3 @@
-
 use v5.40;
 
 package game1::object;
@@ -11,70 +10,83 @@ use Moose;
 with 'MooseX::Clone';
 
 
-has 'name'     => ( is      => 'rw',
-                    isa     => 'Str',
-                    default => sub{ 'Incognito' } );
+has 'name'     => (
+    is      => 'rw',
+    isa     => 'Str',
+    default => sub{ 'Incognito' }
+);
 
-has 'position' => ( is      => 'rw',
-                    isa     => 'game1::position',
-                    default => sub{ game1::position -> new( x => 0, y => 0 ) } );
+has 'position' => (
+    is      => 'rw',
+    isa     => 'game1::position',
+    default => sub{ game1::position -> new( x => 0, y => 0 ) }
+);
 
-has 'desitination' => ( is      => 'rw',
-                        isa     => 'Maybe[game1::position]',
-                        default => sub{ undef } );
+has 'desitination' => (
+    is      => 'rw',
+    isa     => 'Maybe[game1::position]',
+    default => sub{ undef }
+);
 
-has 'velocity' => ( is      => 'rw',
-                    isa     => 'Num',
-                    default => 0 );
+has 'velocity' => (
+    is      => 'rw',
+    isa     => 'Num',
+    default => 0
+);
 
-has 'health'   => ( is      => 'rw',
-                    isa     => 'Int',
-                    default => 100 );
+has 'health'   => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 100
+);
 
-has 'size'     => ( is      => 'rw',
-                    isa     => 'HashRef',
-                    default => sub{ { width  => 10,
-                                      height => 10 } } );
+has 'size'     => (
+    is      => 'rw',
+    isa     => 'HashRef',
+    default => sub{ { width  => 10, height => 10 } }
+);
 
-has 'view'     => ( is      => 'rw',
-                    isa     => 'game1::view',
-                    default => sub{ game1::view -> new() } );
+has 'view'     => (
+    is      => 'rw',
+    isa     => 'game1::view',
+    default => sub{ game1::view -> new() }
+);
 
 
 sub move_left
 {
-        my $self = shift;
+    my $self = shift;
 
-        $self -> position() -> x( $self -> position() -> x() - 1 );
+    $self -> position() -> x( $self -> position() -> x() - 1 );
 
-        return;
+    return;
 }
 
 sub move_right
 {
-        my $self = shift;
+    my $self = shift;
 
-        $self -> position() -> x( $self -> position() -> x() + 1 );
+    $self -> position() -> x( $self -> position() -> x() + 1 );
 
-        return;
+    return;
 }
 
 sub move_up
 {
-        my $self = shift;
+    my $self = shift;
 
-        $self -> position() -> y( $self -> position() -> y() - 1 );
+    $self -> position() -> y( $self -> position() -> y() - 1 );
 
-        return;
+    return;
 }
 
 sub move_down
 {
-        my $self = shift;
+    my $self = shift;
 
-        $self -> position() -> y( $self -> position() -> y() + 1 );
+    $self -> position() -> y( $self -> position() -> y() + 1 );
 
-        return;
+    return;
 }
 
 

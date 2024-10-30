@@ -21,13 +21,13 @@ glColor3f( 0, 1, 1 );
 
 while( 1 )
 {
-        glBegin( GL_POLYGON );
-          glVertex2f( 0, 0 );
-          glVertex2f( 0, glutGet( GLUT_WINDOW_HEIGHT ) );
-          glVertex2f( glutGet( GLUT_WINDOW_WIDTH ), 0 );
-        glEnd();
+    glBegin( GL_POLYGON );
+    glVertex2f( 0, 0 );
+    glVertex2f( 0, glutGet( GLUT_WINDOW_HEIGHT ) );
+    glVertex2f( glutGet( GLUT_WINDOW_WIDTH ), 0 );
+    glEnd();
 
-        glFlush();
+    glFlush();
 }
 
 #for( my $i = -100; $i <= 100; $i += 100 )

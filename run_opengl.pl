@@ -10,17 +10,17 @@ glOrtho(-1,1,-1,1,-1,1);
 
 glColor3f(0,0,1);
 glBegin(GL_POLYGON);
-  glVertex2f(-0.5,-0.5);
-  glVertex2f(-0.5, 0.5);
-  glVertex2f( 0.5, 0.5);
-  glVertex2f( 0.5,-0.5);
+glVertex2f(-0.5,-0.5);
+glVertex2f(-0.5, 0.5);
+glVertex2f( 0.5, 0.5);
+glVertex2f( 0.5,-0.5);
 glEnd();
 
 glColor3f(1,1,0);
 glBegin(GL_POLYGON);
-  glVertex2f(-0.5, 0.5);
-  glVertex2f( 0.5, 0.5);
-  glVertex2f( 0.5,-0.5);
+glVertex2f(-0.5, 0.5);
+glVertex2f( 0.5, 0.5);
+glVertex2f( 0.5,-0.5);
 glEnd();
 
 glFlush();

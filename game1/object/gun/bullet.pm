@@ -10,26 +10,28 @@ use Moose;
 extends 'game1::object';
 
 
-has 'initial_position' => ( is      => 'rw',
-                            isa     => 'game1::position',
-                            default => sub{ game1 -> player() -> gun() } );
+has 'initial_position' => (
+    is      => 'rw',
+    isa     => 'game1::position',
+    default => sub{ game1 -> player() -> gun() }
+);
 
 sub init
 {
-        my $self = shift;
+    my $self = shift;
 
-        $self -> view() -> color( 'black' );
+    $self -> view() -> color( 'black' );
 
-        return;
+    return;
 }
 
 sub fire
 {
-        my $self = shift;
+    my $self = shift;
 
-        $self -> move();
+    $self -> move();
 
-        return;
+    return;
 }
 
 

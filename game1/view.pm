@@ -8,9 +8,11 @@ use Moose;
 
 has 'symbol'    => ( is => 'rw', isa => 'Str', default => ' ' );
 
-has 'color'     => ( is      => 'rw',
-                     isa     => 'game1::color',
-                     default => sub{ game1::color -> new( name => 'white' ) } );
+has 'color'     => (
+    is      => 'rw',
+    isa     => 'game1::color',
+    default => sub{ game1::color -> new( name => 'white' ) }
+);
 
 has 'invisible' => ( is => 'rw', isa => 'Bool', default => sub{ 1 } );
 

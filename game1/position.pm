@@ -11,12 +11,12 @@ has 'y' => ( is => 'rw', isa => 'Int', default => 0 );
 
 sub set
 {
-        my ( $self, $x, $y ) = shift;
+    my ( $self, $x, $y ) = shift;
 
-        $self -> x( $x );
-        $self -> y( $y );
+    $self -> x( $x );
+    $self -> y( $y );
 
-        return;
+    return;
 }
 
 
