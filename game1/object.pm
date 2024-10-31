@@ -4,6 +4,7 @@ package game1::object;
 
 use Data::Dumper;
 use game1::position;
+use game1::vector;
 use game1::view;
 
 use Moose;
@@ -30,8 +31,8 @@ has 'desitination' => (
 
 has 'velocity' => (
     is      => 'rw',
-    isa     => 'Num',
-    default => 0
+    isa     => 'game1::vector',
+    default => sub{ game1::vector->new( x => 0, y => 0 ) }
 );
 
 has 'health'   => (

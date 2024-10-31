@@ -142,7 +142,7 @@ sub init
         $step_time = time();
         #$self->move_player_in_random_direction();
 
-        #$self->move_ovbjects_that_have_velocity();
+        $self->move_ovbjects_that_have_velocity();
 
         $self->render();
         $self->wait_for_the_next_step( $step_time );
@@ -151,20 +151,22 @@ sub init
     }
 }
 
-#sub move_ovbjects_that_have_velocity
-#{
-#    my $self = shift;
-#
-#    foreach my $object ( @{ $self->field()->objects() } )
-#    {
-#        if( $object->velocity() and $object->destination() )
-#        {
-#            $object->destination();
-#        }
-#    }
-#
-#    return;
-#}
+sub move_ovbjects_that_have_velocity {
+    my $self = shift;
+
+    foreach my $object ( @{ $self->field()->objects() } ) {
+        if( $object->velocity ) {
+            $object->position(
+                game1::position->new(
+                    x => $object->position->x + $object->velocity->x,
+                    y => $object->position->y + $object->velocity->y,
+                )
+            );
+        }
+    }
+
+    return;
+}
 
 #sub move_player_in_random_direction
 #{

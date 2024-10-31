@@ -45,7 +45,8 @@ sub fire
 {
     my $self = shift;
 
-    $self->move_up();
+    #$self->move_up();
+    $self->velocity( game1::vector->new( x => 1, y => 0 ) );
     say 'moving';
 
     return;
